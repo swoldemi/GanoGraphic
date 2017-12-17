@@ -13,15 +13,24 @@ classdef SteganographicEncoder < handle
         MessageLength % The length of the message
         MessageASCII % The ASCII equivalents of the message
         MessageBinary % Binary conversion of the message
+        State % Logical value stating whether or not the encryption has occcured
     end
     methods
-        
+ 
+        %{
+            Constructor
+        %}
+        function obj = SteganographicEncoder(filename, message)
+            obj.Message = message;
+            obj.ImageName = filename;
+            obj.State = 0;
+        end
         %{
             Check the file extension and throw an exception if it is not
             Currently only supporting PNG and TIFF files
         %}
         function checkFile(obj)
-            [file_name, file_extension] = strtok(obj.ImageName, '.');
+            [file_name, file_extension] = strtok(obj.ImageName, '.'); %#ok<ASGLU>
             msgID = 'checkFile:invalidImage';
             msg = strcat(obj.ImageName, ' is not an image.');
             InvalidImageException = MException(msgID, msg);
@@ -75,7 +84,10 @@ classdef SteganographicEncoder < handle
             
             % Embed the encrypted message in the image
             % ImageData is now the steganographic image
-            obj.ImageData(obj.DecryptionKey) = encryptedCells;           
+            obj.ImageData(obj.DecryptionKey) = encryptedCells;
+            
+            % Update State
+            obj.State = 1;
         end
         
         %{
@@ -88,6 +100,14 @@ classdef SteganographicEncoder < handle
         function saveKey(obj)
             GanoDecryptionKey = obj.DecryptionKey; % Unable to use class property as a save function parameter
             save ./steganography/GanoDecryptionKey.MAT GanoDecryptionKey;
+        end
+        
+         %{
+            Save the steganograpic image to the disk
+        %}
+        function saveGano(obj)
+            new_file_name = strcat('Gano', obj.ImageName);
+            imwrite(obj.ImageData, new_file_name, '.png')
         end
     end    
 end

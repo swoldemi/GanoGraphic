@@ -6,17 +6,15 @@
 %}
 clear; clc;
 
-% Create a new Encoder object
-enc = SteganographicEncoder;
-enc.ImageName = 'original.png';
-enc.Message = 'Hello World!';
+% Create a new Encoder object with the class constructor
+enc = SteganographicEncoder('original.xxx', 'Hello World!');
 
 % Confirm the image is valid
 try
     checkFile(enc)
 catch InvalidImageException
     msgbox(InvalidImageException.message, InvalidImageException.identifier)
-    %exit
+    return
 end
 
 % Load the image
@@ -33,3 +31,6 @@ encode(enc)
 
 % Save the key to the disk
 saveKey(enc)
+
+% Write the steganographic image to the disk
+saveGano(enc)
