@@ -53,5 +53,8 @@ catch InvalidGanoImageException
     return
 end
 
+% Load in the image
+loadSteganography(dec)
+
 % Load the decryption key
 loadDecryptionKey(dec)

@@ -33,7 +33,12 @@ classdef SteganographicDecoder < handle
                 obj.Valid = 1;
             end
         end
-        
+        %{
+            Load the steganography
+        %}
+        function loadSteganography(obj)
+            obj.ImageData = imread(obj.ImageName);
+        end
         %{
             Load the decryption key
         %}
