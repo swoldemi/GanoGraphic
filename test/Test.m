@@ -7,7 +7,7 @@
 clear; clc;
 
 % Create a new Encoder object with the class constructor
-enc = SteganographicEncoder('original.xxx', 'Hello World!');
+enc = SteganographicEncoder('original.png', 'Hello World!');
 
 % Confirm the image is valid
 try
@@ -34,3 +34,8 @@ saveKey(enc)
 
 % Write the steganographic image to the disk
 saveGano(enc)
+
+% Show the steganographic image
+showImage(enc)
+
+

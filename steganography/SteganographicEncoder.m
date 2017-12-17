@@ -53,7 +53,14 @@ classdef SteganographicEncoder < handle
             Show the image
         %}
         function showImage(obj)
-            imshow(obj.ImageData)
+            if obj.State == 0
+                imshow(obj.ImageData)
+                title('Original Image');
+            else
+                figure(2);
+                imshow(obj.ImageData);
+                title('Steganographic Image');
+            end
         end
                 
         %{
@@ -102,12 +109,14 @@ classdef SteganographicEncoder < handle
             save ./steganography/GanoDecryptionKey.MAT GanoDecryptionKey;
         end
         
-         %{
+        %{
             Save the steganograpic image to the disk
         %}
         function saveGano(obj)
-            new_file_name = strcat('Gano', obj.ImageName);
-            imwrite(obj.ImageData, new_file_name, '.png')
+            new_file_name = strcat('./steganography/Gano-', obj.ImageName);
+            imwrite(obj.ImageData, new_file_name, 'png')
         end
+        
+        
     end    
 end
