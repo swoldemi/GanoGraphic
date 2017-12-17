@@ -46,6 +46,16 @@ classdef SteganographicEncoder < handle
         function showImage(obj)
             imshow(obj.ImageData)
         end
+                
+        %{
+            Prepare the encryption object's message properties        
+        %}
+        function prepareMessage(obj)
+            obj.MessageLength = length(obj.Message);
+            obj.MessageASCII = uint8(obj.Message);
+            obj.MessageBinary = de2bi(obj.MessageASCII, 8);
+        end
+        
         
     end    
 end

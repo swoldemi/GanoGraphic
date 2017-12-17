@@ -26,3 +26,8 @@ loadImage(enc)
 
 % Show the image
 showImage(enc)
+
+% Prepare the message
+prepareMessage(enc)
+
+
