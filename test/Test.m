@@ -4,11 +4,11 @@
     Author: Simon W.
     Repository: www.github.com/swoldemi/GanoGraphic
 %}
-clear; clc;
-%{
+
 % BEGIN ENCRYPTION
+clear; clc;
 % Create a new Encoder object with the class constructor
-enc = SteganographicEncoder('original.png', 'Hello World!');
+enc = SteganographicEncoder('klein-bottle.png', 'Hello World!');
 
 % Confirm the image is valid
 try
@@ -38,12 +38,11 @@ saveGano(enc)
 
 % Show the steganographic image
 showImage(enc)
-%}
 
 % BEGIN DECRYPTION
 clear; clc;
 % Create a new Decoder object with the class constructor
-dec = SteganographicDecoder('Gano-original.png', "GanoDecryptionKey.MAT");
+dec = SteganographicDecoder('Gano-klein-bottle.png', "GanoDecryptionKey.MAT");
 
 % Confirm the image is valid
 try
@@ -58,3 +57,9 @@ loadSteganography(dec)
 
 % Load the decryption key
 loadDecryptionKey(dec)
+
+% Decrypt the message
+decrypt(dec)
+
+% Display the message
+msgbox(dec.DecryptedMessage)
