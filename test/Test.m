@@ -41,8 +41,9 @@ showImage(enc)
 %}
 
 % BEGIN DECRYPTION
+clear; clc;
 % Create a new Decoder object with the class constructor
-dec = SteganographicDecoder('Gano-original.png', 'GanoDecryptionKey.MAT');
+dec = SteganographicDecoder('Gano-original.png', "GanoDecryptionKey.MAT");
 
 % Confirm the image is valid
 try
@@ -51,3 +52,6 @@ catch InvalidGanoImageException
     msgbox(InvalidGanoImageException.message, InvalidGanoImageException.identifier)
     return
 end
+
+% Load the decryption key
+loadDecryptionKey(dec)
