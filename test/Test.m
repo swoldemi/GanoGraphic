@@ -1,23 +1,28 @@
-%This program decodes a Steganography image for a message given a stegagraphic image and key
-
-%Simon Woldemichael
-
+% 
+% 
+%{
+    This test encodes a message, displays the steganography and decrypts
+    the message with a key
+    Author: Simon Woldemichael
+    Repository: www.github.com/swoldemi/GanoGraphic
+%}
 clear; clc;
 
-%Create a new Encoder object
+% Create a new Encoder object
 enc = SteganographicEncoder;
-enc.Image = 'original.xxx';
+enc.ImageName = 'original.png';
 enc.Message = 'Hello World!';
 
-%Confirm the image is valid
+% Confirm the image is valid
 try
     checkFile(enc)
 catch InvalidImageException
     msgbox(InvalidImageException.message, InvalidImageException.identifier)
-end
-
-if enc.Valid == 0
     %exit
 end
 
-%
+% Load the image
+loadImage(enc)
+
+% Show the image
+showImage(enc)
