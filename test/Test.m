@@ -1,5 +1,3 @@
-% 
-% 
 %{
     This test encodes a message, displays the steganography and decrypts
     the message with a key
@@ -30,5 +28,8 @@ showImage(enc)
 % Prepare the message
 prepareMessage(enc)
 
-% Preform the strganography
+% Preform the steganography
 encode(enc)
+
+% Save the key to the disk
+saveKey(enc)

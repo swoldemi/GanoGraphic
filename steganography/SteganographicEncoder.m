@@ -77,5 +77,17 @@ classdef SteganographicEncoder < handle
             % ImageData is now the steganographic image
             obj.ImageData(obj.DecryptionKey) = encryptedCells;           
         end
+        
+        %{
+            Save the decryption key
+            ***TO DO***: 
+                 *      Encrypt the key before writing it to the disk
+                 *      The user sending the message should sign the key
+                            before it's saved
+        %}
+        function saveKey(obj)
+            GanoDecryptionKey = obj.DecryptionKey; % Unable to use class property as a save function parameter
+            save ./steganography/GanoDecryptionKey.MAT GanoDecryptionKey;
+        end
     end    
 end
