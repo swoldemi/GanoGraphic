@@ -3,7 +3,7 @@
 %{
     This test encodes a message, displays the steganography and decrypts
     the message with a key
-    Author: Simon Woldemichael
+    Author: Simon W.
     Repository: www.github.com/swoldemi/GanoGraphic
 %}
 clear; clc;
@@ -24,10 +24,11 @@ end
 % Load the image
 loadImage(enc)
 
-% Show the image
+% Show the original image
 showImage(enc)
 
 % Prepare the message
 prepareMessage(enc)
 
-
+% Preform the strganography
+encode(enc)
