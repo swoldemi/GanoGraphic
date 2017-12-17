@@ -5,7 +5,8 @@
     Repository: www.github.com/swoldemi/GanoGraphic
 %}
 clear; clc;
-
+%{
+% BEGIN ENCRYPTION
 % Create a new Encoder object with the class constructor
 enc = SteganographicEncoder('original.png', 'Hello World!');
 
@@ -37,5 +38,16 @@ saveGano(enc)
 
 % Show the steganographic image
 showImage(enc)
+%}
 
+% BEGIN DECRYPTION
+% Create a new Decoder object with the class constructor
+dec = SteganographicDecoder('Gano-original.png', 'GanoDecryptionKey.MAT');
 
+% Confirm the image is valid
+try
+    checkFile(dec)
+catch InvalidGanoImageException
+    msgbox(InvalidGanoImageException.message, InvalidGanoImageException.identifier)
+    return
+end
