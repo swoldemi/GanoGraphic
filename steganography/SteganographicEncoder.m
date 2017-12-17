@@ -17,7 +17,7 @@ classdef SteganographicEncoder < handle
         function cf = checkFile(obj)
             [file_name, file_extension] = strtok(obj.Image, '.');
             msgID = 'checkFile:invalidImage';
-            msg = strcat(file_name, ' is not an image.');
+            msg = strcat(obj.Image, ' is not an image.');
             InvalidImageException = MException(msgID, msg);
             if strcmp('.png', file_extension) == 0 && strncmp('.tiff', file_extension, 4) == 0
                obj.Valid = 0;
