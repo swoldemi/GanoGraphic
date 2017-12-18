@@ -44,27 +44,29 @@ classdef SteganographicDecoder < handle
         end
         
         %{
-            Load the decryption key
+            Decrypt and load the decryption key
         %}
         function loadDecryptionKey(obj)
-           obj.DecryptionKey = load(obj.DecryptionKey);
+            %[status, cmd_out] = system('cd ./steganography/key/ && private.bat') % GPG requires --batch option for symmetric decryption
+            key_file = fopen('./steganography/key/ganoDecryptionKey', 'r');
+            obj.DecryptionKey = fscanf(key_file, '%u');
         end
         
         %{
             Retrieve the message
         %}
         function decrypt(obj) 
-            obj.MessageLength = length(obj.DecryptionKey.GanoDecryptionKey)/8;
+            obj.MessageLength = length(obj.DecryptionKey)/8;
             
             % Retrieve all of the LSBs embeded in the image located
             % at the indices given in the decryption key
             % Use DEC2BIN since DE2BI converts to binary vectors
-            obj.DecryptedMessage = dec2bin(obj.ImageData(obj.DecryptionKey.GanoDecryptionKey), 8);
-            obj.DecryptedMessage = reshape(obj.DecryptedMessage, [length(obj.DecryptionKey.GanoDecryptionKey), 8]);
+            obj.DecryptedMessage = dec2bin(obj.ImageData(obj.DecryptionKey), 8);
+            obj.DecryptedMessage = reshape(obj.DecryptedMessage, [length(obj.DecryptionKey), 8]);
             
             % Convert the message to ASCII
             % use BIN2DEC since BI2DE assumes binary vectors
-            obj.DecryptedMessage = obj.DecryptedMessage((length(obj.DecryptionKey.GanoDecryptionKey):-1:1), 8);
+            obj.DecryptedMessage = obj.DecryptedMessage((length(obj.DecryptionKey):-1:1), 8);
             obj.DecryptedMessage = reshape(obj.DecryptedMessage, [obj.MessageLength, 8]);
             obj.DecryptedMessage = char(uint8(bin2dec(obj.DecryptedMessage)));
             

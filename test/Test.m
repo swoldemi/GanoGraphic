@@ -40,9 +40,9 @@ saveGano(enc)
 showImage(enc)
 
 % BEGIN DECRYPTION
-
+clear; clc;
 % Create a new Decoder object with the class constructor
-dec = SteganographicDecoder('Gano-klein-bottle.png', "GanoDecryptionKey.MAT");
+dec = SteganographicDecoder('Gano-klein-bottle.png', "./steganography/key/GanoDecryptionKey");
 
 % Confirm the image is valid
 try

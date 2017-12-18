@@ -105,14 +105,18 @@ classdef SteganographicEncoder < handle
                             before it's saved
         %}
         function saveKey(obj)
-            GanoDecryptionKey = obj.DecryptionKey; % Unable to use class property as a save function parameter
-            save ./steganography/key/GanoDecryptionKey.MAT GanoDecryptionKey;
+            
+           GanoDecryptionKey = obj.DecryptionKey;
+           key_file = fopen('./steganography/key/GanoDecryptionKey', 'w');
+           fprintf(key_file, '%u\n', GanoDecryptionKey);
+           fclose(key_file);
+            % save('./steganography/key/GanoDecryptionKey.mat', 'GanoDecryptionKey');
             
             % Encrypt the key and delete the unencrypted key
-            private = load('private.MAT'); 
-            enc_cmd = sprintf('echo %s | gpg --passphrase-fd 0 -r GanoGraphic --encrypt GanoDecryptionKey.MAT', private.private);
-            command = sprintf('cd ./steganography/key/ && %s && del GanoDecryptionKey.MAT', enc_cmd);
-            [status, cmd_out] = system(command);  
+           % private = load('private.MAT'); 
+           % enc_cmd = sprintf('echo %s | gpg --compress-level 0 --passphrase-fd 0 -r GanoGraphic --encrypt GanoDecryptionKey.mat', private.private);
+           % enc_cmd = sprintf('cd ./steganography/key/ && %s && del GanoDecryptionKey.mat', enc_cmd);
+           % [status, cmd_out] = system(enc_cmd);
         end
         
         
