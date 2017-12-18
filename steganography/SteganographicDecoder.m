@@ -47,9 +47,11 @@ classdef SteganographicDecoder < handle
             Decrypt and load the decryption key
         %}
         function loadDecryptionKey(obj)
-            %[status, cmd_out] = system('cd ./steganography/key/ && private.bat') % GPG requires --batch option for symmetric decryption
-            key_file = fopen('./steganography/key/ganoDecryptionKey', 'r');
+            [status, cmd_out] = system('cd ./steganography/key/ && private.bat'); % GPG requires --batch option for symmetric decryption
+            key_file = fopen('./steganography/key/GanoDecryptionKey', 'r');
             obj.DecryptionKey = fscanf(key_file, '%u');
+            fclose(key_file);
+            
         end
         
         %{
@@ -71,7 +73,11 @@ classdef SteganographicDecoder < handle
             obj.DecryptedMessage = char(uint8(bin2dec(obj.DecryptedMessage)));
             
             % Reshape the text
-             obj.DecryptedMessage = flip(reshape(obj.DecryptedMessage, [1, obj.MessageLength])); 
+            obj.DecryptedMessage = flip(reshape(obj.DecryptedMessage, [1, obj.MessageLength])); 
+            
+            % Clean up before exit
+            obj.DecryptionKey = '';
+            [status, cmd_out] = system('cd ./steganography/key/ && del GanoDecryptionKey.gpg && del GanoDecryptionKey');
         end
     end    
 end

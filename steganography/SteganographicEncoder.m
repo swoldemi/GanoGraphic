@@ -82,8 +82,7 @@ classdef SteganographicEncoder < handle
             % Convert pixel values from dec to binary
             binConversion = de2bi(obj.ImageData(obj.DecryptionKey), 8);
             
-            % Replace the LSB of each binary value to hold bits of the
-            % message
+            % Replace the LSB of each binary value to hold bits of the message
             binConversion(1:obj.MessageLength*8) = obj.MessageBinary(1:obj.MessageLength*8);
             
             % Convert decimal pixel values and put replace them in the image
@@ -101,22 +100,20 @@ classdef SteganographicEncoder < handle
             Save the decryption key
             ***TO DO***: 
                  *      PCode the entire saveKey method
-                 *      The user sending the message should sign the key
-                            before it's saved
         %}
         function saveKey(obj)
+            GanoDecryptionKey = obj.DecryptionKey;
+            key_file = fopen('./steganography/key/GanoDecryptionKey', 'wt');
+            fprintf(key_file, '%u\n', GanoDecryptionKey);
             
-           GanoDecryptionKey = obj.DecryptionKey;
-           key_file = fopen('./steganography/key/GanoDecryptionKey', 'w');
-           fprintf(key_file, '%u\n', GanoDecryptionKey);
-           fclose(key_file);
-            % save('./steganography/key/GanoDecryptionKey.mat', 'GanoDecryptionKey');
+            % Encrypt the key and delete the unencrypted key 
+            p = fopen('./steganography/key/private', 'rt');
+            private = fscanf(p, '%s');
+            fclose('all');
             
-            % Encrypt the key and delete the unencrypted key
-           % private = load('private.MAT'); 
-           % enc_cmd = sprintf('echo %s | gpg --compress-level 0 --passphrase-fd 0 -r GanoGraphic --encrypt GanoDecryptionKey.mat', private.private);
-           % enc_cmd = sprintf('cd ./steganography/key/ && %s && del GanoDecryptionKey.mat', enc_cmd);
-           % [status, cmd_out] = system(enc_cmd);
+            enc_cmd = sprintf('gpg --passphrase %s -r GanoGraphic --encrypt GanoDecryptionKey', private);
+            enc_cmd = sprintf('cd ./steganography/key/ && %s && del /f GanoDecryptionKey', enc_cmd);
+            [status, cmd_out] = system(enc_cmd)
         end
         
         
@@ -127,7 +124,5 @@ classdef SteganographicEncoder < handle
             new_file_name = strcat('./steganography/Gano-', obj.ImageName);
             imwrite(obj.ImageData, new_file_name, 'png')
         end
-        
-        
-    end    
+    end
 end
