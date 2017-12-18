@@ -100,14 +100,21 @@ classdef SteganographicEncoder < handle
         %{
             Save the decryption key
             ***TO DO***: 
-                 *      Encrypt the key before writing it to the disk
+                 *      PCode the entire saveKey method
                  *      The user sending the message should sign the key
                             before it's saved
         %}
         function saveKey(obj)
             GanoDecryptionKey = obj.DecryptionKey; % Unable to use class property as a save function parameter
-            save ./steganography/GanoDecryptionKey.MAT GanoDecryptionKey;
+            save ./steganography/key/GanoDecryptionKey.MAT GanoDecryptionKey;
+            
+            % Encrypt the key and delete the unencrypted key
+            private = load('private.MAT'); 
+            enc_cmd = sprintf('echo %s | gpg --passphrase-fd 0 -r GanoGraphic --encrypt GanoDecryptionKey.MAT', private.private);
+            command = sprintf('cd ./steganography/key/ && %s && del GanoDecryptionKey.MAT', enc_cmd);
+            [status, cmd_out] = system(command);  
         end
+        
         
         %{
             Save the steganograpic image to the disk

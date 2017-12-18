@@ -30,7 +30,7 @@ prepareMessage(enc)
 % Preform the steganography
 encode(enc)
 
-% Save the key to the disk
+% Encrypt and save the key to the disk
 saveKey(enc)
 
 % Write the steganographic image to the disk
@@ -40,7 +40,7 @@ saveGano(enc)
 showImage(enc)
 
 % BEGIN DECRYPTION
-clear; clc;
+
 % Create a new Decoder object with the class constructor
 dec = SteganographicDecoder('Gano-klein-bottle.png', "GanoDecryptionKey.MAT");
 
