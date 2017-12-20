@@ -5,7 +5,8 @@
 %}
 loop = 'null';
 options.WindowStyle = 'normal';
-options.Rezie = 'on';
+options.Resize = 'on';
+options.Interpreter = 'none';
 while strcmp(loop, 'Exit') == 0
     % Verify Action
     choice = questdlg('What would you like to do?', ...
@@ -17,16 +18,16 @@ while strcmp(loop, 'Exit') == 0
         case 'Encrypt'
             % Take in user input
             prompt = {'Enter image name:', 'Enter message:', 'Enter recipients PGP key name:'};
-            dlg_title = 'GanoGraphic Steganography Encryption';
+            dlg_title = 'GanoGraphic Steganography Encoding';
             num_lines = 1;
-            default_ans = {'.png, .tiff, or .tiff only', 'Hello friend.'};
+            default_ans = {'.png, .tiff, or .tiff only', 'Hello friend.', 'John Doe'};
             result = inputdlg(prompt, dlg_title, num_lines, default_ans, options);
             encrypt(result);
 
         case 'Decrypt'
             % Take in user input
             prompt = {'Enter steganographic image name:', 'Enter encrypted decryption key name:'};
-            dlg_title = 'GanoGraphic Steganography Decryption';
+            dlg_title = 'GanoGraphic Steganography Decoding';
             num_lines = 1;
             default_ans = {'', ''};
             result = inputdlg(prompt, dlg_title, num_lines, default_ans, options);
