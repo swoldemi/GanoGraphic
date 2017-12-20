@@ -16,7 +16,7 @@ while strcmp(loop, 'Exit') == 0
     switch choice
         case 'Encrypt'
             % Take in user input
-            prompt = {'Enter image name:', 'Enter message:'};
+            prompt = {'Enter image name:', 'Enter message:', 'Enter recipients PGP key name:'};
             dlg_title = 'GanoGraphic Steganography Encryption';
             num_lines = 1;
             default_ans = {'.png, .tiff, or .tiff only', 'Hello friend.'};
@@ -62,7 +62,7 @@ function encrypt(result)
     encode(enc)
 
     % Encrypt and save the key to the disk
-    saveKey(enc)
+    saveKey(enc, result{3})
 
     % Write the steganographic image to the disk
     saveGano(enc)

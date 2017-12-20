@@ -102,7 +102,7 @@ classdef GanoGraphicEncoder < handle
             ***TO DO***: 
                  *      PCode the entire saveKey method
         %}
-        function saveKey(obj)
+        function saveKey(obj, recipient)
             GanoDecryptionKey = obj.DecryptionKey;
             key_file = fopen('GanoDecryptionKey', 'wt');
             fprintf(key_file, '%u\n', GanoDecryptionKey);
@@ -112,9 +112,9 @@ classdef GanoGraphicEncoder < handle
             private = fscanf(p, '%s');
             fclose('all');
             
-            enc_cmd = sprintf('gpg --passphrase %s -r "Simon Woldemichael" --encrypt GanoDecryptionKey', private);
+            enc_cmd = sprintf('gpg --passphrase %s -r "%s" --encrypt GanoDecryptionKey', private, recipient);
             enc_cmd = sprintf('%s && del /f GanoDecryptionKey', enc_cmd);
-            [status, cmd_out] = system(enc_cmd)
+            [status, cmd_out] = system(enc_cmd);
         end
         
         
