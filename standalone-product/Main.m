@@ -10,7 +10,7 @@ while strcmp(loop, 'Exit') == 0
     % Verify Action
     choice = questdlg('What would you like to do?', ...
         'GanoGraphic Menu', ...
-        'Encrypt','Decrypt','Exit', 'Exit')
+        'Encrypt','Decrypt','Exit', 'Exit');
 
     % Handle response
     switch choice
@@ -94,5 +94,5 @@ function decrypt(result)
     decode(dec)
 
     % Display the message
-    msgbox(strcat('Message: ', dec.DecryptedMessage))
+    msgbox(strcat('Message:', dec.DecryptedMessage))
 end
