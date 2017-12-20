@@ -43,7 +43,7 @@ function encrypt(result)
     loadImage(enc)
 
     % Show the original image
-    showImage(enc)
+    %showImage(enc)
 
     % Prepare the message
     prepareMessage(enc)
@@ -58,7 +58,7 @@ function encrypt(result)
     saveGano(enc)
 
     % Show the steganographic image
-    showImage(enc)
+    %showImage(enc)
 end
 
 function decrypt(result)
