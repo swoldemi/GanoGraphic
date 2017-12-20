@@ -50,7 +50,7 @@ classdef GanoGraphicDecoder < handle
         %}
         function loadDecryptionKey(obj)
             [status, cmd_out] = system('private.bat'); % GPG requires --batch option for symmetric decryption
-            key_file = fopen('GanoDecryptionKey', 'r');
+            key_file = fopen('GanoDecryptionKey', 'rt');
             obj.DecryptionKey = fscanf(key_file, '%u');
             fclose(key_file);
             
