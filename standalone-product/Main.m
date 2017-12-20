@@ -29,7 +29,7 @@ while strcmp(loop, 'Exit') == 0
             prompt = {'Enter steganographic image name:', 'Enter encrypted decryption key name:'};
             dlg_title = 'GanoGraphic Steganography Decoding';
             num_lines = 1;
-            default_ans = {'', ''};
+            default_ans = {'GanoImage-', 'GanoDecryptionKey.gpg'};
             result = inputdlg(prompt, dlg_title, num_lines, default_ans, options);
             decrypt(result);
         case 'Exit'
