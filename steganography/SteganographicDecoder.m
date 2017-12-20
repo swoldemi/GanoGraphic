@@ -57,7 +57,7 @@ classdef SteganographicDecoder < handle
         %{
             Retrieve the message
         %}
-        function decrypt(obj) 
+        function decode(obj) 
             obj.MessageLength = length(obj.DecryptionKey)/8;
             
             % Retrieve all of the LSBs embeded in the image located

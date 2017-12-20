@@ -59,7 +59,7 @@ loadSteganography(dec)
 loadDecryptionKey(dec)
 
 % Decrypt the message
-decrypt(dec)
+decode(dec)
 
 % Display the message
 msgbox(dec.DecryptedMessage)
